@@ -1,15 +1,14 @@
-import { BookOpen, FolderGit2, MonitorPlay, Play } from "lucide-react";
+import { MonitorPlay } from "lucide-react";
 import { useEffect, useState } from "react";
 import { GlassField, TiltCard } from "../components/GlassField";
 import { Logo } from "../components/Logo";
 import { duration, num } from "../lib/format";
 import { Link } from "../lib/router";
-import { REPLAY, REPO_URL } from "../replay/player";
+import { REPLAY } from "../replay/player";
 
 // The front door. A judge should understand VIGIL in 30 seconds here, then open
-// the console (live, or the recorded run on the hosted link).
+// the console (live, or the replay on the hosted link).
 
-const VIDEO_URL: string = import.meta.env.VITE_VIDEO_URL ?? "";
 const NOBODY = { secs: 22 * 60 + 31, lost: 20336 };   // the same fault, nobody acting: still failing when the test ended (measured)
 
 interface Row { scenario: string; label: string; pass?: boolean; mttd_s?: number | null; mttr_s?: number | null; checkouts_lost?: number | null; actions?: string[]; root?: string | null }
@@ -139,9 +138,8 @@ export function Home() {
             ))}
           </nav>
           <span className="nav-status" title={REPLAY ? "This link plays back a real recorded run" : "Connected to the running stack"}>
-            <i aria-hidden="true" data-live={!REPLAY || undefined} />{REPLAY ? "Recorded run" : "Live stack"}
+            <i aria-hidden="true" data-live={!REPLAY || undefined} />{REPLAY ? "Replay" : "Live stack"}
           </span>
-          {REPO_URL && <a className="nav-icon" href={REPO_URL} target="_blank" rel="noreferrer" aria-label="Code on GitHub" title="Code on GitHub"><FolderGit2 size={18} /></a>}
           <Link href="/console" className="btn btn-primary nav-cta"><MonitorPlay size={16} /> Open the console</Link>
         </div>
       </header>
@@ -157,8 +155,6 @@ export function Home() {
             </p>
             <div className="hero-ctas">
               <Link href="/console" className="btn btn-primary btn-lg"><MonitorPlay size={18} /> Open the console</Link>
-              {VIDEO_URL && <a className="btn btn-lg" href={VIDEO_URL} target="_blank" rel="noreferrer"><Play size={18} /> Watch the 5-min demo</a>}
-              {REPO_URL && <a className="btn btn-lg" href={REPO_URL} target="_blank" rel="noreferrer"><FolderGit2 size={18} /> Code on GitHub</a>}
             </div>
             <p className="hero-note">
               {REPLAY
@@ -278,7 +274,6 @@ export function Home() {
 
       <footer className="home-foot">
         <Link href="/console" className="btn btn-primary"><MonitorPlay size={16} /> Open the console</Link>
-        {REPO_URL && <a className="btn" href={REPO_URL} target="_blank" rel="noreferrer"><BookOpen size={16} /> Read the code</a>}
       </footer>
     </div>
   );

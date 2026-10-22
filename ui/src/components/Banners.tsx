@@ -1,6 +1,6 @@
 import { CircleAlert, FlaskConical, GraduationCap, Pause, Play } from "lucide-react";
 import { useEffect, useState } from "react";
-import { player, REPLAY, REPO_URL } from "../replay/player";
+import { player, REPLAY } from "../replay/player";
 import { duration } from "../lib/format";
 import { useVigil } from "../state/vigil";
 
@@ -61,8 +61,6 @@ function useReplayState() {
 
 function ReplayBanner() {
   const p = useReplayState();
-  const when = p.index ? new Date(p.index.recorded_at * 1000) : null;
-  const date = when ? `${when.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}, ${when.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}` : "";
   const now = p.current?.label ?? "";
   const short = now.replace(/\s*\(.*\)$/, "");
   const status = p.hold === "approval" ? "Waiting for you: approve or reject the fix below."
@@ -75,13 +73,12 @@ function ReplayBanner() {
     <div className="replay-banner" role="status">
       <span className="replay-dot" data-playing={p.phase === "playing"} aria-hidden="true"><Play size={12} /></span>
       <span className="replay-text" title={`A real run recorded on the team's laptop: every number on screen comes from that run.${yours}`}>
-        <b>Recorded run</b>, {date}. <span className="replay-now">{status}</span>
+        <b>Replay</b> <span className="replay-now">{status}</span>
       </span>
       <span className="replay-actions">
         <button type="button" className="btn btn-small btn-chaos" onClick={() => window.dispatchEvent(new Event("vigil:open-chaos"))}>
           <FlaskConical size={15} /> Pick a fault
         </button>
-        {REPO_URL && <a className="btn btn-small" href={REPO_URL} target="_blank" rel="noreferrer">Run it live</a>}
       </span>
     </div>
   );

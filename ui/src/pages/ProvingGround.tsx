@@ -69,7 +69,6 @@ export function ProvingGround() {
   }
 
   const s = card.summary;
-  const when = new Date(s.started_at * 1000);
   const took = Math.round((s.finished_at - s.started_at) / 60);
   return (
     <div className="stack">
@@ -77,8 +76,7 @@ export function ProvingGround() {
         <div className="panel-head">
           <h1 id="pg-title" className="page-title">Proving Ground</h1>
           <span className="panel-sub">
-            run {when.toLocaleDateString("en-GB", { day: "numeric", month: "short" })}, {when.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })},
-            {" "}{took} min at autonomy {s.autonomy_during_run}
+            {took} min run at autonomy {s.autonomy_during_run}
           </span>
         </div>
         <p className="pg-lede">Every fault injected for real, one at a time. VIGIL never sees the answer key; times are measured from the moment of injection.</p>
