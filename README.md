@@ -8,6 +8,7 @@ right fix inside strict guardrails, and only calls it done when real checkouts r
 
 | | |
 | --- | --- |
+| **Try it in your browser** (a real recorded run, nothing to install) | **https://vigil-bay-phi.vercel.app** |
 | **Proving Ground scorecard** | **5/5 passed** across 4 real faults and a quiet period: median detection 18.8 s, median verified recovery 1m 15s, 0 false alarms |
 
 ## The problem
